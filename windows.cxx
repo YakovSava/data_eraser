@@ -69,27 +69,25 @@ int erase(string path) {
 }
 
 
-// int main(int argc, char* argv[]) {
-// 	vector<string> disks = get_logical_disks();
-// 	if (argc < 1) {
-// 		cout << "Error! Not enought disk" << endl;
-// 	} else if {
-// 		string disk = argv[0];
-// 		bool disk_in = false;
-// 		for (string& drive : drives) {
-// 			if (disk == drive) {
-// 				disk_in = true;
-// 				break;
-// 			}
-// 		}
-// 	}
-// 	if (!disk_in) {
-// 		cout << "Disk not found!" << endl;
-// 	} else {
-		
-// 	}
-// }
+int main(int argc, char* argv[]) {
+	vector<string> drives = get_logical_disks();
+	bool disk_in = false;
+	if (argc < 1) {
+		cout << "Error! Not enought disk" << endl;
+	} else {
+		string disk = argv[0];
+		for (string& drive : drives) {
+			if (disk == drive) {
+				disk_in = true;
+				break;
+			}
+		}
+	}
+	if (!disk_in) {
+		cout << "Disk not found!" << endl;
+	} else {
+		erase((string)argv[0]);
+	}
 
-int main() {
-	return erase("F:");
+	return 0;
 }
