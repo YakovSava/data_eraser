@@ -2,9 +2,13 @@
 # include <vector>
 # include <windows.h>
 # include <fstream>
-# include <locale>
 # include <cstdio>
 using namespace std;
+
+void rm_file(string filepath) {
+	string command = "rm -f ";
+	system((command+filepath).c_str());
+}
 
 vector<string> get_logical_disks() {
 	DWORD bufferLength = GetLogicalDriveStrings(0, NULL);
@@ -63,7 +67,7 @@ int erase(string path) {
 		}
 	}
 
-	remove((path+filename).c_str());
+	rm_file(path+filename);
 
 	return 0;
 }
@@ -77,8 +81,8 @@ int main(int argc, char* argv[]) {
 	} else {
 		string disk = argv[0];
 		for (string& drive : drives) {
-			if (disk == drive) {
-				disk_in = true;
+			if ((string)disk == drive) {
+				bool disk_in = true;
 				break;
 			}
 		}
