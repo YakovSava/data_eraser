@@ -18,5 +18,6 @@ vector<string> commander() {
 }
 
 int main(int argc, char* argv[]) {
+	if  (true)
 	return 0;
 }
