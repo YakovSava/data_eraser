@@ -3,6 +3,7 @@
 # include <windows.h>
 # include <fstream>
 # include <cstdio>
+# include <algorithm>
 using namespace std;
 
 void rm_file(string filepath) {
@@ -75,22 +76,15 @@ int erase(string path) {
 
 int main(int argc, char* argv[]) {
 	vector<string> drives = get_logical_disks();
-	bool disk_in = false;
-	if (argc < 1) {
+	if (argc < 2) {
 		cout << "Error! Not enought disk" << endl;
 	} else {
-		string disk = argv[0];
-		for (string& drive : drives) {
-			if ((string)disk == drive) {
-				bool disk_in = true;
-				break;
-			}
+		auto it = find(drives.begin(), drives.end(), (string)argv[1])
+		if (it == strings.end()) {
+			cout << "Disk not found!" << endl;
+		} else {
+			erase((string)argv[1]);
 		}
-	}
-	if (!disk_in) {
-		cout << "Disk not found!" << endl;
-	} else {
-		erase((string)argv[0]);
 	}
 
 	return 0;

@@ -9,15 +9,25 @@ void rm_file(string filepath) {
 	system((command+filepath).c_str());
 }
 
+vector<string> split(string lines, string splitter) {
+	vector<string> substrings;
+	istringstream iss(lines);
+	string substring;
+	while (getline(iss, substring, splitter)) {
+		substrings.push_back(substring);
+	}
+
+	return substrings;
+}
+
+string get_cl_answer(string command) {
+	return "";
+}
+
 vector<string> get_mount_point() {
 	return NULL;
 }
 
-vector<string> commander() {
-	return NULL;
-}
-
 int main(int argc, char* argv[]) {
-	if  (true)
 	return 0;
 }
