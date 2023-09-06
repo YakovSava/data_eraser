@@ -45,7 +45,7 @@ string get_cl_answer(string command) {
 }
 
 int startswith(string str, string start) {
-	if (string.compare(0, start.size(), start)) {
+	if (str.compare(0, start.size(), start)) {
 		return 1;
 	} else {
 		return 0;
@@ -68,7 +68,7 @@ vector<string> get_mount_point() {
 	vector<string> lines = split(findmnt_answer);
 	// vector<vector<string>> splitted_lines;
 	
-	for (vector<string> info : lines) {
+	for (string info : lines) {
 		if (startswith(info[1], "/dev/sd")) {
 			for (string udevadm_info : split(get_cl_answer(((string)"udevadm info --query=all --name="))+info[1], "\n")) {
 				if (startswith(udevadm_info, "E: DEVPATH") && (udevadm_info.find("usb") != string::npos)) {
@@ -137,7 +137,7 @@ int main(int argc, char* argv[]) {
 	if (argc < 2) {
 		cout << "Error! Not enought moint point" << endl;
 	} else {
-		auto it = find(mnt_list.begin(), mnt_list.end(), (string)argv[1])
+		auto it = find(mnt_list.begin(), mnt_list.end(), (string)argv[1]);
 		if (it == mnt_list.end()) {
 			cout << "Mount point not found!" << endl;
 		} else {
