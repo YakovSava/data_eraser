@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
 		cout << "Error! Not enought disk" << endl;
 	} else {
 		auto it = find(drives.begin(), drives.end(), (string)argv[1])
-		if (it == strings.end()) {
+		if (it == drives.end()) {
 			cout << "Disk not found!" << endl;
 		} else {
 			erase((string)argv[1]);
