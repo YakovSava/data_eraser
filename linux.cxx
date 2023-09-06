@@ -112,17 +112,34 @@ unsigned long long get_file_size(string filepath) {
 }
 
 int erase(string mnt_point) {
+	string filename = "/erase";
+	ofstream file(mnt_point+filename);
+	if (!file.is_open()) {
+		cerr << "Unknow error!" << endl;
+		return -1;
+	}
+	while (true) {
+		file << "1\n";
+		if (get_file_size(mnt_point+filename) < get_free_memory_on_disk(mnt_point) * 0.7) {
+			break;
+		}
+	}
+
+	rm_file(mnt_point+filename);
+
+	return 0;
+	
 	return 0;
 }
 
 int main(int argc, char* argv[]) {
 	vector<string> mnt_list = get_mount_point();
 	if (argc < 2) {
-		cout << "Error! Not enought disk" << endl;
+		cout << "Error! Not enought moint point" << endl;
 	} else {
 		auto it = find(mnt_list.begin(), mnt_list.end(), (string)argv[1])
 		if (it == mnt_list.end()) {
-			cout << "Disk not found!" << endl;
+			cout << "Mount point not found!" << endl;
 		} else {
 			erase((string)argv[1]);
 		}
