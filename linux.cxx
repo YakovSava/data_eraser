@@ -130,18 +130,37 @@ int erase(string mnt_point) {
 	return 0;
 }
 
-int main(int argc, char* argv[]) {
+//int main(int argc, char* argv[]) {
+//	vector<string> mnt_list = get_mount_point();
+//	if (argc < 2) {
+//		cout << "Error! Not enought moint point" << endl;
+//	} else {
+//		auto it = find(mnt_list.begin(), mnt_list.end(), (string)argv[1]);
+//		if (it == mnt_list.end()) {
+//			cout << "Mount point not found!" << endl;
+//		} else {
+//			erase((string)argv[1]);
+//		}
+//	}
+//	
+//	return 0;
+//}
+
+int main() {
 	vector<string> mnt_list = get_mount_point();
-	if (argc < 2) {
-		cout << "Error! Not enought moint point" << endl;
-	} else {
-		auto it = find(mnt_list.begin(), mnt_list.end(), (string)argv[1]);
-		if (it == mnt_list.end()) {
-			cout << "Mount point not found!" << endl;
-		} else {
-			erase((string)argv[1]);
-		}
+	int change;
+	
+	for (int i = 0; i < mnt_list.size(); i++) {
+		cout << "\t" << i+1 << ": " << mnt_list[i] << endl;
 	}
+	cout << "Erase data in: ";
+	cin >> change;
+	if (0 > change > mnt_list.size()) {
+		cout << "Error" << endl;
+		return 1;
+	}
+	
+	erase(mnt_list[change-1]);
 	
 	return 0;
 }
