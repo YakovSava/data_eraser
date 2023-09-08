@@ -14,22 +14,21 @@ void rm_file(string filepath) {
 	system((command+filepath).c_str());
 }
 
-vector<string> split(string lines, string splitter) {
-	vector<string> substrings;
-	istringstream iss(lines);
-	string substring;
-	while (getline(iss, substring, splitter)) {
-		substrings.push_back(substring);
-	}
-
-	return substrings;
+vector<string> split(const string& lines, const string& splitter) {
+    vector<string> substrings;
+    istringstream iss(lines);
+    string substring;
+    while (getline(iss, substring, splitter[0])) {
+        substrings.push_back(substring);
+    }
+    return substrings;
 }
 
 string get_cl_answer(string command) {
 	FILE* pipe = popen(command.c_str(), "r");
     if (!pipe) {
         cerr << "Unknow error!" << endl;
-        return -1;
+        return NULL;
     }
     
     char buffer[128];
@@ -65,12 +64,11 @@ vector<string> get_mount_point() {
 	vector<string> mnt_points;
 
 	string findmnt_answer = get_cl_answer("findmnt");
-	vector<string> lines = split(findmnt_answer);
-	// vector<vector<string>> splitted_lines;
+	vector<vector<string>> lines = maping(split(findmnt_answer, "\n"));
 	
-	for (string info : lines) {
+	for (vector<string> info : lines) {
 		if (startswith(info[1], "/dev/sd")) {
-			for (string udevadm_info : split(get_cl_answer(((string)"udevadm info --query=all --name="))+info[1], "\n")) {
+			for (string udevadm_info : split(get_cl_answer((("udevadm info --query=all --name="))+info[1]), "\n")) {
 				if (startswith(udevadm_info, "E: DEVPATH") && (udevadm_info.find("usb") != string::npos)) {
 					mnt_points.push_back(info[0]);
 				}
