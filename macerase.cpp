@@ -62,19 +62,28 @@ int eraser(string diskpath) {
     return 0;
 }
 
-string get_diskpaths() {
-    vector<string> diskutils_info = get_cl_answer("diskutils info");
-    for (const string str : diskutils_info) {
-        if (startswith(str, "/dev/sd")) {
-            vector<string> finder = split(get_cl_answer("diskutil info "+str));
+vector<string> get_diskpaths() {
+    vector<string> to_ret;
+    vector<string> diskutils_info = split(get_cl_answer("diskutil list"), "\n");
+    for (const string ln : diskutils_info) {
+        if (startswith(ln, "/dev/sd")) {
+            vector<string> str = split(ln, " ");
+
+            vector<string> finder = split(get_cl_answer("diskutil info "+str[0]), " ");
             for (const string line : finder) {
-                if (line.find('Protocol:') != string::npos) {
+                if ((line.find('Protocol:') != string::npos) && (line.find('USB') != string::npos)) {
+                    to_ret.push_back(str[0]);
                 }
             }
         }
     }
+
+    return to_ret;
 }
 
 int main(int argc, char* argv[]) {
-
+    vector<string> dp = get_diskpaths();
+    for (string elem : dp) {
+        cout << elem << endl;
+    }
 }
