@@ -49,3 +49,32 @@ int startswith(string str, string start) {
 		return 0;
 	}
 }
+
+int get_free_memory_on_disk(string diskpath) {
+    return 0;
+}
+
+int get_filesize(string filepath) {
+    return 0;
+}
+
+int eraser(string diskpath) {
+    return 0;
+}
+
+string get_diskpaths() {
+    vector<string> diskutils_info = get_cl_answer("diskutils info");
+    for (const string str : diskutils_info) {
+        if (startswith(str, "/dev/sd")) {
+            vector<string> finder = split(get_cl_answer("diskutil info "+str));
+            for (const string line : finder) {
+                if (line.find('Protocol:') != string::npos) {
+                }
+            }
+        }
+    }
+}
+
+int main(int argc, char* argv[]) {
+
+}
