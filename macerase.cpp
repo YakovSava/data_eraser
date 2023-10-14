@@ -82,8 +82,5 @@ vector<string> get_diskpaths() {
 }
 
 int main(int argc, char* argv[]) {
-    vector<string> dp = get_diskpaths();
-    for (string elem : dp) {
-        cout << elem << endl;
-    }
+    return 0;
 }
